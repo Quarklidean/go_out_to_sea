@@ -1,0 +1,2082 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>企业出海：基于FDI的动机、路径与绩效分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #64748b;
+            --accent: #0ea5e9;
+            --surface: #f8fafc;
+            --text: #1e293b;
+            --muted: #64748b;
+        }
+        
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .citation-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-left: 2px;
+        }
+        
+        .citation-link:hover {
+            text-decoration: underline;
+        }
+        
+        .toc-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid #e2e8f0;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .section-anchor {
+            scroll-margin-top: 2rem;
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            height: 60vh;
+        }
+        
+        .bento-main {
+            grid-row: 1 / -1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        
+        .bento-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .bento-card {
+            flex: 1;
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .hero-title {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            z-index: 10;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+            z-index: 5;
+        }
+        
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+        
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+        
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+        
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Enhanced mermaid styling for better contrast and multiple node colors */
+        .mermaid svg {
+            max-width: none !important;
+            height: auto !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Primary nodes (dark blue) */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            fill: #1e3a8a !important;
+            stroke: #1e40af !important;
+            stroke-width: 2px !important;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: all 0.2s ease;
+        }
+        
+        /* Secondary nodes (medium blue) */
+        .mermaid .node.secondaryNode rect,
+        .mermaid .node.secondaryNode circle,
+        .mermaid .node.secondaryNode ellipse,
+        .mermaid .node.secondaryNode polygon {
+            fill: #3b82f6 !important;
+            stroke: #2563eb !important;
+        }
+        
+        /* Tertiary nodes (light blue) */
+        .mermaid .node.tertiaryNode rect,
+        .mermaid .node.tertiaryNode circle,
+        .mermaid .node.tertiaryNode ellipse,
+        .mermaid .node.tertiaryNode polygon {
+            fill: #60a5fa !important;
+            stroke: #3b82f6 !important;
+        }
+        
+        /* Quaternary nodes (gray) */
+        .mermaid .node.quaternaryNode rect,
+        .mermaid .node.quaternaryNode circle,
+        .mermaid .node.quaternaryNode ellipse,
+        .mermaid .node.quaternaryNode polygon {
+            fill: #64748b !important;
+            stroke: #475569 !important;
+        }
+        
+        /* All node text styling */
+        .mermaid .node .label,
+        .mermaid .nodeLabel {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            fill: #ffffff !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Specific text styling for different node types */
+        .mermaid .node.secondaryNode .label,
+        .mermaid .node.secondaryNode .nodeLabel {
+            color: #ffffff !important;
+            fill: #ffffff !important;
+        }
+        
+        .mermaid .node.tertiaryNode .label,
+        .mermaid .node.tertiaryNode .nodeLabel {
+            color: #1e293b !important;
+            fill: #1e293b !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        .mermaid .node.quaternaryNode .label,
+        .mermaid .node.quaternaryNode .nodeLabel {
+            color: #ffffff !important;
+            fill: #ffffff !important;
+        }
+        
+        /* Edge styling */
+        .mermaid .edgePath .path {
+            stroke: #64748b !important;
+            stroke-width: 2px !important;
+            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            color: #1e293b !important;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            padding: 4px 8px !important;
+            border-radius: 4px !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Subgraph styling */
+        .mermaid .cluster rect {
+            fill: rgba(248, 250, 252, 0.9) !important;
+            stroke: #cbd5e1 !important;
+            stroke-width: 1.5px !important;
+            rx: 8px !important;
+        }
+        
+        .mermaid .cluster .label {
+            color: #1e293b !important;
+            font-weight: 700 !important;
+            font-size: 14px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Arrow styling */
+        .mermaid .arrowheadPath {
+            fill: #64748b !important;
+            stroke: #64748b !important;
+        }
+        
+        /* Hover effects for better interactivity */
+        .mermaid .node:hover rect,
+        .mermaid .node:hover circle,
+        .mermaid .node:hover ellipse,
+        .mermaid .node:hover polygon {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            stroke-width: 3px !important;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-nav {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-nav.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .bento-main {
+                grid-row: auto;
+                height: 40vh;
+            }
+            
+            /* Responsive mermaid controls */
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            .hero-title h1 span {
+                font-size: 1.8rem;
+            }
+            .hero-title p {
+                font-size: 1rem;
+            }
+            .bento-main {
+                height: 30vh;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .bento-grid {
+                gap: 1rem;
+            }
+            .px-8 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .section-anchor {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            .prose {
+                font-size: 1rem;
+            }
+            .prose h2 {
+                font-size: 1.5rem;
+            }
+            .prose h3 {
+                font-size: 1.25rem;
+            }
+            .prose h4 {
+                font-size: 1.1rem;
+            }
+            .mermaid-container {
+                padding: 15px;
+            }
+            .bg-white.rounded-xl.shadow-sm {
+                padding: 1rem;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="bg-white text-gray-900 font-sans">
+    <!-- Table of Contents -->
+    <nav class="toc-nav">
+      <div class="mb-8">
+        <h3 class="font-serif text-lg font-semibold text-gray-900 mb-4">目录</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#introduction" class="block py-1 px-2 rounded text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">引言</a>
+          </li>
+          <li>
+            <a href="#literature-review" class="block py-1 px-2 rounded text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">文献综述</a>
+            <ul class="ml-4 mt-1 space-y-1">
+              <li>
+                <a href="#motivation-analysis" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">核心动机分析</a>
+              </li>
+              <li>
+                <a href="#target-country" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">目标国选择</a>
+              </li>
+              <li>
+                <a href="#path-selection" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">路径选择</a>
+              </li>
+              <li>
+                <a href="#performance-evaluation" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">绩效评价</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#chinese-enterprises" class="block py-1 px-2 rounded text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">中国企业出海现状</a>
+            <ul class="ml-4 mt-1 space-y-1">
+              <li>
+                <a href="#current-trends" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">总体趋势</a>
+              </li>
+              <li>
+                <a href="#unique-advantages" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">独特优势</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#international-comparison" class="block py-1 px-2 rounded text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">国际比较</a>
+            <ul class="ml-4 mt-1 space-y-1">
+              <li>
+                <a href="#motivation-comparison" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">动机比较</a>
+              </li>
+              <li>
+                <a href="#target-comparison" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">目标国比较</a>
+              </li>
+              <li>
+                <a href="#path-comparison" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">路径比较</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#case-studies" class="block py-1 px-2 rounded text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors">案例分析</a>
+            <ul class="ml-4 mt-1 space-y-1">
+              <li>
+                <a href="#traditional-manufacturing" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">传统制造业</a>
+              </li>
+              <li>
+                <a href="#emerging-manufacturing" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">新兴制造业</a>
+              </li>
+              <li>
+                <a href="#traditional-services" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">传统服务业</a>
+              </li>
+              <li>
+                <a href="#emerging-services" class="block py-1 px-2 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">新兴服务业</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Hero Section with Bento Layout -->
+      <section class="relative">
+        <div class="bento-grid max-w-7xl mx-auto p-8">
+          <!-- Main Hero Card -->
+          <div class="bento-main hero-gradient">
+            <img src="https://kimi-web-img.moonshot.cn/img/www.2008php.com/6b73b0242181fe346c045da85d5f750435af3634.jpg" alt="抽象几何线条组成的地球网络连接示意图" class="absolute inset-0 w-full h-full object-cover opacity-30" size="wallpaper" aspect="wide" color="blue" query="抽象几何线条 地球 网络连接" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            <div class="hero-overlay"></div>
+            <div class="hero-title">
+              <h1 class="font-serif text-5xl font-bold text-white leading-tight mb-4">
+                企业出海：
+                <br/>
+                <span class="italic text-4xl opacity-90">基于FDI的动机、路径与绩效分析</span>
+              </h1>
+              <p class="text-xl text-gray-200 font-light max-w-2xl">
+                深度解析中国企业全球化战略的多维度框架与国际比较研究
+              </p>
+            </div>
+          </div>
+
+          <!-- Side Cards -->
+          <div class="bento-side">
+            <div class="bento-card">
+              <div class="flex items-center mb-3">
+                <i class="fas fa-chart-line text-blue-600 text-lg mr-3"></i>
+                <h3 class="font-serif text-lg font-semibold">核心洞察</h3>
+              </div>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                企业出海动机从传统的市场和效率驱动，转向技术、品牌与战略资产寻求的多元化格局
+              </p>
+            </div>
+
+            <div class="bento-card">
+              <div class="flex items-center mb-3">
+                <i class="fas fa-globe text-green-600 text-lg mr-3"></i>
+                <h3 class="font-serif text-lg font-semibold">全球视野</h3>
+              </div>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                中国企业以供应链和数字技术优势，在南北方国家布局中展现独特竞争力
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Introduction -->
+      <section id="introduction" class="section-anchor max-w-5xl mx-auto px-8 py-16">
+        <div class="prose prose-lg max-w-none">
+          <div class="bg-white rounded-xl shadow-sm border p-8 mb-12">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 mb-6">引言</h2>
+            <p class="text-gray-700 leading-relaxed mb-6">
+              企业出海，即通过对外直接投资（FDI）在全球范围内配置资源、拓展市场，已成为企业寻求增长、提升竞争力的核心战略。本文基于FDI的理论框架，系统梳理了企业出海的核心动机、目标国选择、路径决策及绩效评价体系。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-semibold text-blue-900 mb-3">研究背景</h3>
+                <p class="text-blue-800 text-sm leading-relaxed">
+                  研究发现，企业出海动机已从传统的市场和效率驱动，转向技术、品牌与战略资产寻求的多元化格局。在目标国选择上，呈现出对发达国家（北方国家）的技术与市场，以及发展中国家（南方国家）的成本与市场潜力并重的趋势。
+                </p>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-semibold text-green-900 mb-3">核心发现</h3>
+                <p class="text-green-800 text-sm leading-relaxed">
+                  通过对中国企业与欧美、日韩、印度企业的国际比较，揭示了中国企业出海的独特性：以强大的供应链和制造能力为基础，以领先的数字技术为赋能，并依托超大规模的国内市场作为战略支撑。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Literature Review -->
+      <section id="literature-review" class="section-anchor max-w-5xl mx-auto px-8 py-16 bg-gray-50">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12 text-center">文献综述：企业FDI的理论框架与演进</h2>
+
+          <!-- Motivation Analysis -->
+          <div id="motivation-analysis" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">企业出海的核心动机分析</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8 mb-8">
+              <p class="text-gray-700 leading-relaxed mb-6">
+                企业对外直接投资（FDI）的动机是复杂且多维度的，受到全球经济格局、技术周期、地缘政治以及企业自身发展阶段等多重因素的影响。近年来，中国企业出海的动机呈现出显著的结构性变迁，从早期的资源寻求和成本驱动，转向更为复杂的市场、技术和战略驱动。
+              </p>
+
+              <!-- FDI Motivation Flow Chart -->
+              <div class="mermaid-container">
+                <div class="mermaid-controls">
+                  <button class="mermaid-control-btn zoom-in" title="放大">
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                  <button class="mermaid-control-btn zoom-out" title="缩小">
+                    <i class="fas fa-search-minus"></i>
+                  </button>
+                  <button class="mermaid-control-btn reset-zoom" title="重置">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                  </button>
+                  <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+                <div class="mermaid">
+                  graph TD
+                  A[&#34;企业出海动机&#34;] --&gt; B[&#34;市场寻求型&#34;]
+                  A --&gt; C[&#34;资源与效率寻求型&#34;]
+                  A --&gt; D[&#34;技术与战略资产寻求型&#34;]
+                  A --&gt; E[&#34;制度与政策驱动型&#34;]
+
+                  B --&gt; B1[&#34;接近市场与客户 40%&#34;]
+                  B --&gt; B2[&#34;市场增长 25%&#34;]
+
+                  C --&gt; C1[&#34;获取熟练劳动力 22%&#34;]
+                  C --&gt; C2[&#34;降低成本与提升效率&#34;]
+
+                  D --&gt; D1[&#34;获取先进技术&#34;]
+                  D --&gt; D2[&#34;获取知名品牌&#34;]
+
+                  E --&gt; E1[&#34;监管环境 20%&#34;]
+                  E --&gt; E2[&#34;政府支持 12%&#34;]
+                  E --&gt; E3[&#34;规避贸易壁垒&#34;]
+
+                  style A fill:#1e3a8a,stroke:#1e40af,stroke-width:3px,color:#ffffff
+                  style B fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+                  style C fill:#60a5fa,stroke:#3b82f6,stroke-width:2px,color:#1e293b
+                  style D fill:#22c55e,stroke:#16a34a,stroke-width:2px,color:#ffffff
+                  style E fill:#eab308,stroke:#ca8a04,stroke-width:2px,color:#1e293b
+                  style B1 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style B2 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style C1 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style C2 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style D1 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style D2 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style E1 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style E2 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style E3 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="font-serif text-lg font-semibold text-gray-900 mb-4">市场寻求型动机</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    根据fDi Markets的数据，在2018年至2023年间，<strong>&#34;接近市场与客户&#34;以40%的占比高居榜首</strong>，成为最核心的驱动力<a href="#ref1" class="citation-link">[1]</a>。这标志着中国企业出海已经从单纯的产品输出，深化到服务本地市场、建立本土化运营体系的新阶段。
+                  </p>
+                  <div class="bg-blue-50 rounded-lg p-4">
+                    <p class="text-blue-800 text-xs italic">
+                      &#34;无锡日联科技股份有限公司在马来西亚设立首个海外工厂，正是看中了东南亚市场对中国新技术、新装备的青睐。&#34;
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-serif text-lg font-semibold text-gray-900 mb-4">资源与效率寻求型动机</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    <strong>&#34;获取熟练劳动力&#34;占比22%</strong>，显示出中国企业对高端人力资源的渴求。随着国内产业升级和技术进步，企业对高技能、创新型人才的需求日益增长。
+                  </p>
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <p class="text-green-800 text-xs italic">
+                      &#34;中国企业&#39;抱团&#39;出海，利用中国强大的供应链和配套制造能力，在海外建立产业集群。&#34;
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Target Country Selection -->
+          <div id="target-country" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">目标国选择：南北方国家的区位因素</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                企业在进行对外直接投资时，目标国的选择是决定投资成败的关键一步。这一决策过程受到目标国区位优势的深刻影响，这些优势通常可以概括为两大类：一是以发达国家（北方国家）为代表的技术、市场和制度优势；二是以发展中国家（南方国家）为代表的低成本、资源和市场潜力优势。
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div class="border-l-4 border-blue-500 pl-6">
+                  <h4 class="font-serif text-xl font-semibold text-blue-900 mb-4">目标北方国家（发达国家）</h4>
+                  <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                      <i class="fas fa-microchip text-blue-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>技术先进：</strong>世界领先的研发能力、创新生态和高端人才储备
+                      </div>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-store text-blue-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>市场成熟：</strong>规模庞大、消费能力强且需求多元化的消费市场
+                      </div>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt text-blue-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>制度完善：</strong>健全的法律体系、透明的监管环境和稳定的政治经济秩序
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-6">
+                  <h4 class="font-serif text-xl font-semibold text-green-900 mb-4">目标南方国家（发展中国家）</h4>
+                  <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                      <i class="fas fa-dollar-sign text-green-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>成本优势：</strong>较低的劳动力成本、土地成本和原材料成本
+                      </div>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-gem text-green-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>资源丰富：</strong>矿产、能源、农产品等自然资源丰富
+                      </div>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-chart-line text-green-500 mt-1 mr-3"></i>
+                      <div>
+                        <strong>市场潜力：</strong>经济快速增长，庞大的人口基数和不断壮大的中产阶级
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Path Selection -->
+          <div id="path-selection" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">出海路径选择：绿地投资与跨国并购</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                企业在确定了出海动机和目标国之后，接下来面临的关键决策是选择何种路径进入海外市场。对外直接投资（FDI）的主要路径可以分为两大类：绿地投资（Greenfield Investment）和跨国并购（Cross-border M&amp;A）。
+              </p>
+
+              <!-- Path Selection Comparison -->
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-blue-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-seedling text-blue-600 text-xl mr-3"></i>
+                    <h4 class="font-serif text-xl font-semibold text-blue-900">绿地投资</h4>
+                  </div>
+                  <div class="space-y-4">
+                    <div>
+                      <h5 class="font-semibold text-blue-800 mb-2">核心优势</h5>
+                      <ul class="text-blue-700 text-sm space-y-1">
+                        <li>• 完全控制权，可定制化布局</li>
+                        <li>• 获得当地政府支持</li>
+                        <li>• 长期品牌建设</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold text-blue-800 mb-2">适用情境</h5>
+                      <p class="text-blue-700 text-sm">
+                        资本实力雄厚、产品复购率高、对本地响应速度要求强的龙头企业
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-handshake text-green-600 text-xl mr-3"></i>
+                    <h4 class="font-serif text-xl font-semibold text-green-900">跨国并购</h4>
+                  </div>
+                  <div class="space-y-4">
+                    <div>
+                      <h5 class="font-semibold text-green-800 mb-2">核心优势</h5>
+                      <ul class="text-green-700 text-sm space-y-1">
+                        <li>• 快速获取现有资产</li>
+                        <li>• 缩短市场进入时间</li>
+                        <li>• 获得技术和渠道</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold text-green-800 mb-2">适用情境</h5>
+                      <p class="text-green-700 text-sm">
+                        希望快速获取关键技术、填补市场空白或应对激烈竞争的企业
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+                <h4 class="font-serif text-lg font-semibold text-yellow-900 mb-3">
+                  <i class="fas fa-lightbulb mr-2"></i>路径选择关键因素
+                </h4>
+                <div class="grid md:grid-cols-3 gap-4 text-sm text-yellow-800">
+                  <div>
+                    <strong>企业能力：</strong>生产率、研发密度、营销网络发达程度
+                  </div>
+                  <div>
+                    <strong>行业特征：</strong>竞争强度、技术更新速度、资本密集度
+                  </div>
+                  <div>
+                    <strong>目标国环境：</strong>制度完善度、市场成熟度、文化差异
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Evaluation -->
+          <div id="performance-evaluation" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">出海绩效评价：多维度综合评估</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                对企业出海绩效的评价，不能仅仅局限于财务指标，而应建立一个涵盖财务、市场、创新和战略等多个维度的综合评价体系。这是因为企业出海的动机是多元化的，其成功与否也应从多个角度进行衡量。
+              </p>
+
+              <!-- Performance Evaluation Framework -->
+              <div class="mermaid-container">
+                <div class="mermaid-controls">
+                  <button class="mermaid-control-btn zoom-in" title="放大">
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                  <button class="mermaid-control-btn zoom-out" title="缩小">
+                    <i class="fas fa-search-minus"></i>
+                  </button>
+                  <button class="mermaid-control-btn reset-zoom" title="重置">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                  </button>
+                  <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+                <div class="mermaid">
+                  graph LR
+                  A[&#34;出海绩效评价&#34;] --&gt; B[&#34;财务绩效&#34;]
+                  A --&gt; C[&#34;市场绩效&#34;]
+                  A --&gt; D[&#34;创新绩效&#34;]
+                  A --&gt; E[&#34;战略绩效&#34;]
+
+                  B --&gt; B1[&#34;投资回报率 ROI&#34;]
+                  B --&gt; B2[&#34;净资产收益率 ROE&#34;]
+                  B --&gt; B3[&#34;利润率&#34;]
+
+                  C --&gt; C1[&#34;市场份额增长&#34;]
+                  C --&gt; C2[&#34;品牌知名度提升&#34;]
+                  C --&gt; C3[&#34;客户满意度&#34;]
+
+                  D --&gt; D1[&#34;核心技术获取&#34;]
+                  D --&gt; D2[&#34;专利数量&#34;]
+                  D --&gt; D3[&#34;研发能力提升&#34;]
+
+                  E --&gt; E1[&#34;全球价值链地位&#34;]
+                  E --&gt; E2[&#34;核心竞争力增强&#34;]
+                  E --&gt; E3[&#34;全球资源配置&#34;]
+
+                  style A fill:#1e3a8a,stroke:#1e40af,stroke-width:3px,color:#ffffff
+                  style B fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+                  style C fill:#22c55e,stroke:#16a34a,stroke-width:2px,color:#ffffff
+                  style D fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#ffffff
+                  style E fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+                  style B1 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style B2 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style B3 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style C1 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style C2 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style C3 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style D1 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style D2 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style D3 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style E1 fill:#f3e8ff,stroke:#8b5cf6,stroke-width:1px,color:#1e293b
+                  style E2 fill:#f3e8ff,stroke:#8b5cf6,stroke-width:1px,color:#1e293b
+                  style E3 fill:#f3e8ff,stroke:#8b5cf6,stroke-width:1px,color:#1e293b
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="bg-blue-50 rounded-lg p-6">
+                    <h4 class="font-serif text-lg font-semibold text-blue-900 mb-3">
+                      <i class="fas fa-chart-bar mr-2"></i>财务绩效
+                    </h4>
+                    <p class="text-blue-800 text-sm mb-3">
+                      最直观、最核心的指标，包括投资回报率（ROI）、净资产收益率（ROE）、利润率等。
+                    </p>
+                    <div class="bg-white rounded p-3">
+                      <p class="text-blue-700 text-xs italic">
+                        &#34;近60%的受访中国企业在2024年实现盈利，超过半数的企业利润率相比2023年有所提升&#34;
+                      </p>
+                      <cite class="text-blue-600 text-xs">
+                        <a href="#ref2" class="citation-link">[2]</a>
+                      </cite>
+                    </div>
+                  </div>
+
+                  <div class="bg-green-50 rounded-lg p-6">
+                    <h4 class="font-serif text-lg font-semibold text-green-900 mb-3">
+                      <i class="fas fa-bullhorn mr-2"></i>市场绩效
+                    </h4>
+                    <p class="text-green-800 text-sm mb-3">
+                      衡量企业在目标市场的地位和影响力，包括市场份额增长、品牌知名度提升等。
+                    </p>
+                    <div class="bg-white rounded p-3">
+                      <p class="text-green-700 text-xs">
+                        比亚迪在东南亚投资建厂，目标不仅是销售产品，更是要在当地新能源汽车市场占据领先地位。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-purple-50 rounded-lg p-6">
+                    <h4 class="font-serif text-lg font-semibold text-purple-900 mb-3">
+                      <i class="fas fa-lightbulb mr-2"></i>创新绩效
+                    </h4>
+                    <p class="text-purple-800 text-sm mb-3">
+                      衡量企业在技术创新和研发能力方面的进步，包括核心技术获取、专利数量等。
+                    </p>
+                    <div class="bg-white rounded p-3">
+                      <p class="text-purple-700 text-xs">
+                        通过收购德国、美国的科技公司，中国企业获得了先进技术，更重要的是吸收了研发管理经验。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="bg-orange-50 rounded-lg p-6">
+                    <h4 class="font-serif text-lg font-semibold text-orange-900 mb-3">
+                      <i class="fas fa-chess-king mr-2"></i>战略绩效
+                    </h4>
+                    <p class="text-orange-800 text-sm mb-3">
+                      从宏观、长远角度评价对企业整体战略目标的贡献，包括全球价值链地位提升等。
+                    </p>
+                    <div class="bg-white rounded p-3">
+                      <p class="text-orange-700 text-xs">
+                        通过国际化经营，企业实现了全球研发、全球生产、全球销售的战略布局。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chinese Enterprises -->
+      <section id="chinese-enterprises" class="section-anchor max-w-5xl mx-auto px-8 py-16">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12 text-center">中国企业出海的现状与特征</h2>
+
+          <!-- Current Trends -->
+          <div id="current-trends" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">中国企业出海的总体趋势与行业分布</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8 mb-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                近年来，中国企业出海呈现出规模持续扩大、结构不断优化、主体日益多元的总体趋势。从投资规模来看，中国对外直接投资（FDI）流量和存量均保持在全球前列，显示出中国企业全球化布局的强大动能。
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="text-center p-6 bg-blue-50 rounded-lg">
+                  <div class="text-3xl font-bold text-blue-600 mb-2">11.9%</div>
+                  <div class="text-sm text-blue-800">全球FDI流量占比</div>
+                  <div class="text-xs text-blue-600 mt-1">2024年数据<a href="#ref3" class="citation-link">[3]</a>
+                  </div>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg">
+                  <div class="text-3xl font-bold text-green-600 mb-2">7.2%</div>
+                  <div class="text-sm text-green-800">全球FDI存量占比</div>
+                  <div class="text-xs text-green-600 mt-1">2024年数据<a href="#ref3" class="citation-link">[3]</a>
+                  </div>
+                </div>
+                <div class="text-center p-6 bg-purple-50 rounded-lg">
+                  <div class="text-3xl font-bold text-purple-600 mb-2">3.2万+</div>
+                  <div class="text-sm text-purple-800">亚洲境外企业数量</div>
+                  <div class="text-xs text-purple-600 mt-1">占总数63.3%<a href="#ref4" class="citation-link">[4]</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-gray-900 mb-4">行业结构转变</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">制造业升级</h5>
+                    <ul class="text-gray-700 text-sm space-y-2">
+                      <li>• 从采矿业为主转向制造业为主</li>
+                      <li>• 集中于金属、电子元器件、汽车</li>
+                      <li>• 可再生能源和化工等技术和资本密集型行业</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">服务业崛起</h5>
+                    <ul class="text-gray-700 text-sm space-y-2">
+                      <li>• 蜜雪冰城在东南亚的连锁扩张</li>
+                      <li>• 华住酒店在海外的酒店业投资</li>
+                      <li>• 字节跳动（TikTok）在欧美的数字服务布局</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <h4 class="font-serif text-xl font-semibold text-gray-900 mb-6">民营企业成为出海主力</h4>
+              <p class="text-gray-700 leading-relaxed mb-6">
+                在中国企业出海的浪潮中，一个尤为显著的特征是<strong>民营企业已经取代国有企业，成为出海的主力军</strong>。与早期以大型国企为主导的资源型和基础设施投资不同，近年来的出海进程主要表现为以民营企业为代表的全球化进程。
+              </p>
+
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h5 class="font-semibold text-blue-900 mb-3">民营企业出海特征</h5>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+                  <div>
+                    <strong>灵活性优势：</strong>更加灵活、市场嗅觉更敏锐，敢于在陌生海外市场探索尝试
+                  </div>
+                  <div>
+                    <strong>供应链优势：</strong>背靠中国强大的供应链和配套制造能力，&#34;抱团&#34;出海
+                  </div>
+                  <div>
+                    <strong>数字化渠道：</strong>积极利用数字化平台和跨境电商等新兴渠道
+                  </div>
+                  <div>
+                    <strong>品牌形象：</strong>从低成本制造向创新、品牌和服务形象转变
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unique Advantages -->
+          <div id="unique-advantages" class="section-anchor">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">中国企业出海的独特优势</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                中国企业在全球竞争中展现出了一系列独特的优势，这些优势根植于中国特殊的经济体制、市场规模和产业生态，构成了其成功出海的重要基石。这些优势并非单一因素，而是一个相互关联、相互强化的系统。
+              </p>
+
+              <!-- Advantages Framework -->
+              <div class="mermaid-container">
+                <div class="mermaid-controls">
+                  <button class="mermaid-control-btn zoom-in" title="放大">
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                  <button class="mermaid-control-btn zoom-out" title="缩小">
+                    <i class="fas fa-search-minus"></i>
+                  </button>
+                  <button class="mermaid-control-btn reset-zoom" title="重置">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                  </button>
+                  <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+                <div class="mermaid">
+                  graph TD
+                  A[&#34;中国企业出海优势系统&#34;] --&gt; B[&#34;强大的供应链与制造能力&#34;]
+                  A --&gt; C[&#34;领先的数字基础设施与应用&#34;]
+                  A --&gt; D[&#34;超大规模国内市场支撑&#34;]
+
+                  B --&gt; B1[&#34;完整工业门类体系&#34;]
+                  B --&gt; B2[&#34;高效低成本生产&#34;]
+                  B --&gt; B3[&#34;柔性生产能力&#34;]
+
+                  C --&gt; C1[&#34;4G/5G网络覆盖&#34;]
+                  C --&gt; C2[&#34;移动支付系统&#34;]
+                  C --&gt; C3[&#34;数字商业模式&#34;]
+
+                  D --&gt; D1[&#34;国内练兵场&#34;]
+                  D --&gt; D2[&#34;议价能力&#34;]
+                  D --&gt; D3[&#34;风险缓冲&#34;]
+
+                  A --&gt; E[&#34;全球竞争力&#34;]
+
+                  style A fill:#1e3a8a,stroke:#1e40af,stroke-width:3px,color:#ffffff
+                  style B fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#ffffff
+                  style C fill:#22c55e,stroke:#16a34a,stroke-width:2px,color:#ffffff
+                  style D fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#1e293b
+                  style E fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#ffffff
+                  style B1 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style B2 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style B3 fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e293b
+                  style C1 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style C2 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style C3 fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#1e293b
+                  style D1 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style D2 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                  style D3 fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#1e293b
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-industry text-blue-600 text-xl mr-3"></i>
+                    <h4 class="font-serif text-lg font-semibold text-blue-900">制造业优势</h4>
+                  </div>
+                  <p class="text-blue-800 text-sm leading-relaxed mb-4">
+                    经过几十年的发展，中国已经形成了全球最完整、最复杂的工业门类体系，从原材料、零部件到最终产品，几乎所有环节都能在国内找到高效、低成本的供应商。
+                  </p>
+                  <div class="bg-white rounded p-3">
+                    <p class="text-blue-700 text-xs italic">
+                      &#34;供应链优势 = 强大的生产制造能力 + 领先的数字基础设施 + 不断加密的国际物流网络&#34;
+                    </p>
+                  </div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-digital-tachograph text-green-600 text-xl mr-3"></i>
+                    <h4 class="font-serif text-lg font-semibold text-green-900">数字化优势</h4>
+                  </div>
+                  <p class="text-green-800 text-sm leading-relaxed mb-4">
+                    中国拥有全球领先的数字基础设施，在电子商务、社交媒体、数字内容等领域积累了丰富的运营经验和创新的商业模式。
+                  </p>
+                  <div class="bg-white rounded p-3">
+                    <p class="text-green-700 text-xs">
+                      字节跳动（TikTok）成功将直播带货、社交电商、算法推荐等模式推向全球市场。
+                    </p>
+                  </div>
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-home text-purple-600 text-xl mr-3"></i>
+                    <h4 class="font-serif text-lg font-semibold text-purple-900">市场优势</h4>
+                  </div>
+                  <p class="text-purple-800 text-sm leading-relaxed mb-4">
+                    超大规模国内市场为企业出海提供了坚实的大后方和独特的战略优势，包括充足的&#34;练兵场&#34;和强大的议价能力。
+                  </p>
+                  <div class="bg-white rounded p-3">
+                    <p class="text-purple-700 text-xs italic">
+                      &#34;先国内，后国际&#34;的发展路径，为参与全球竞争奠定了坚实基础。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- International Comparison -->
+      <section id="international-comparison" class="section-anchor max-w-5xl mx-auto px-8 py-16 bg-gray-50">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12 text-center">国际比较：中国企业与欧美日韩印企业的出海战略</h2>
+
+          <p class="text-gray-700 leading-relaxed mb-12 text-center max-w-4xl mx-auto">
+            在全球化的浪潮中，不同国家和地区的企业在出海战略上展现出各自鲜明的特点。这些差异根植于其母国的经济发展阶段、产业结构、文化背景以及政府政策。通过将中国企业与欧美、日韩、印度等代表性经济体的企业进行比较，可以更清晰地揭示中国企业出海的独特性。
+          </p>
+
+          <!-- Motivation Comparison -->
+          <div id="motivation-comparison" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">出海动机的比较</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border overflow-hidden mb-8">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">国家/地区</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">核心出海动机</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">典型特征与案例</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-red-500 mr-3"></i>
+                          <span class="font-semibold">中国企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        市场与效率驱动为主，技术与战略资产寻求为辅
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        早期以开拓市场、降低成本为主，近年来日益重视通过海外投资获取先进技术、品牌和管理经验。例如，对东南亚的投资多为市场与效率驱动，对欧美的投资则多为技术与品牌驱动。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-blue-500 mr-3"></i>
+                          <span class="font-semibold">欧美企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        技术与品牌输出为主
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        凭借在全球价值链顶端的技术、品牌和管理优势，通过FDI在全球范围内推广高附加值产品和服务。例如，德国的汽车和机械、美国的互联网和软件、法国的奢侈品等。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-green-500 mr-3"></i>
+                          <span class="font-semibold">日韩企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        资源与市场并重
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        历史上因资源匮乏，出海带有强烈的资源寻求色彩。同时，高度重视开拓海外市场，特别是在汽车和电子等制造业领域，通过全球化生产和销售网络，成为全球领先品牌。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-orange-500 mr-3"></i>
+                          <span class="font-semibold">印度企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        服务与技术输出为主
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        凭借在信息技术（IT）、软件外包和业务流程外包（BPO）领域的优势，为全球客户提供服务。近年来，制药、汽车等行业的企业也开始积极进行海外扩张。
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-blue-900 mb-4">中国企业：多元化动机驱动</h4>
+                <p class="text-blue-800 text-sm leading-relaxed mb-4">
+                  中国企业出海的核心动机，在初期主要表现为市场和效率驱动。随着中国经济转型升级，技术与战略资产寻求动机愈发凸显。特别是在对发达国家的投资中，获取先进技术、知名品牌和全球营销网络成为重要目标。
+                </p>
+                <div class="bg-white rounded p-3">
+                  <p class="text-blue-700 text-xs italic">
+                    &#34;制度与政策驱动也是中国出海的一个显著特征，例如响应&#39;一带一路&#39;倡议，或在墨西哥等地投资以规避美国关税壁垒。&#34;
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-green-900 mb-4">欧美企业：技术与品牌输出</h4>
+                <p class="text-green-800 text-sm leading-relaxed mb-4">
+                  欧美企业作为全球跨国公司的先驱，其出海战略的核心是技术和品牌输出。凭借其在科技、研发、品牌管理和全球营销方面的长期积累，致力于在全球范围内推广其高附加值的产品和服务。
+                </p>
+                <div class="bg-white rounded p-3">
+                  <p class="text-green-700 text-xs">
+                    近年来，随着全球对可持续发展的关注，欧美企业在绿色技术、清洁能源等领域的投资也日益增多。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Target Country Comparison -->
+          <div id="target-comparison" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">目标国选择的比较</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border overflow-hidden mb-8">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">国家/地区</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">目标国选择偏好</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">战略考量</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-red-500 mr-3"></i>
+                          <span class="font-semibold">中国企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        南北方国家并重，聚焦&#34;一带一路&#34;
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        在发达国家寻求技术和品牌，在发展中国家寻求市场和资源。&#34;一带一路&#34;倡议是重要的战略导向。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-blue-500 mr-3"></i>
+                          <span class="font-semibold">欧美企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        以北方国家为主，兼顾新兴市场
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        主要在发达国家之间进行相互投资，以巩固市场地位和技术优势。同时，积极开拓新兴市场以寻求增长机会。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-green-500 mr-3"></i>
+                          <span class="font-semibold">日韩企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        以亚洲邻国和北美市场为主
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        亚洲邻国因其地理、文化和经济联系成为首选投资地。北美作为全球最大的消费市场，是其必争之地。
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+              <h4 class="font-serif text-lg font-semibold text-yellow-900 mb-3">
+                <i class="fas fa-globe mr-2"></i>地缘政治与区域经济合作的影响
+              </h4>
+              <p class="text-yellow-800 text-sm mb-4">
+                地缘政治和区域经济合作对企业目标国选择的影响日益显著。一方面，地缘政治冲突和贸易摩擦会促使企业调整其全球供应链布局，以规避风险。另一方面，区域经济一体化和自由贸易协定的签署，为企业创造了更加便利的投资和贸易环境。
+              </p>
+              <div class="grid md:grid-cols-2 gap-4 text-sm text-yellow-700">
+                <div>
+                  <strong>挑战：</strong>中美贸易摩擦导致&#34;中国+1&#34;战略，企业将产能转移到越南、墨西哥等国
+                </div>
+                <div>
+                  <strong>机遇：</strong>&#34;一带一路&#34;倡议、非洲大陆自由贸易区等区域合作创造新机遇
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Path Comparison -->
+          <div id="path-comparison" class="section-anchor">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">出海路径的比较</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border overflow-hidden mb-8">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">国家/地区</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">出海路径偏好</th>
+                      <th class="px-6 py-4 text-left font-serif font-semibold text-gray-900">原因分析</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-red-500 mr-3"></i>
+                          <span class="font-semibold">中国企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        绿地投资与并购并举
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        早期以绿地投资为主，近年来随着实力增强，跨国并购日益增多，以快速获取技术、品牌和市场。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-blue-500 mr-3"></i>
+                          <span class="font-semibold">欧美企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        以跨国并购为主
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        拥有雄厚的资本实力和丰富的并购经验，善于通过并购实现快速扩张、市场整合和获取战略资产。
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-6 py-4">
+                        <div class="flex items-center">
+                          <i class="fas fa-flag text-green-500 mr-3"></i>
+                          <span class="font-semibold">日韩企业</span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        以绿地投资为主
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-700">
+                        注重长期发展和与东道国的合作关系，希望通过绿地投资复制其成功的管理模式和生产体系，并确保对运营的控制。
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-blue-900 mb-3">
+                  <i class="fas fa-balance-scale mr-2"></i>中国企业：灵活选择
+                </h4>
+                <p class="text-blue-800 text-sm leading-relaxed">
+                  中国企业的出海路径呈现出绿地投资与跨国并购并举的特点。联想收购IBM PC业务、吉利收购沃尔沃等都是中国企业通过跨国并购实现跨越式发展的典型案例。
+                </p>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-green-900 mb-3">
+                  <i class="fas fa-rocket mr-2"></i>欧美企业：并购主导
+                </h4>
+                <p class="text-green-800 text-sm leading-relaxed">
+                  欧美企业由于其强大的资本实力和丰富的并购经验，其海外投资更多地采用跨国并购的方式，以快速进入新市场、消灭竞争对手、获取战略性资产。
+                </p>
+              </div>
+
+              <div class="bg-purple-50 rounded-lg p-6">
+                <h4 class="font-serif text-lg font-semibold text-purple-900 mb-3">
+                  <i class="fas fa-building mr-2"></i>日韩企业：绿地投资
+                </h4>
+                <p class="text-purple-800 text-sm leading-relaxed">
+                  日本和韩国企业的海外投资则更多地采用绿地投资的方式，希望将其独特的管理模式、企业文化和生产体系完整地复制到海外。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Case Studies -->
+      <section id="case-studies" class="section-anchor max-w-5xl mx-auto px-8 py-16">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12 text-center">案例分析：不同产业类型的出海实践</h2>
+
+          <!-- Traditional Manufacturing -->
+          <div id="traditional-manufacturing" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">传统制造业出海案例</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8 mb-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                传统制造业的出海，通常表现为寻求更低的生产成本、更广阔的市场以及更稳定的资源供应。中国企业在该领域的出海，往往伴随着技术升级和产业链转移的双重目标。
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="border-l-4 border-blue-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-blue-900 mb-4">中电建在东南亚的基础设施投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    中国电力建设集团有限公司在东南亚的投资展示了大型基建企业通过FDI进入南方发展中国家市场的典型案例。代表性项目包括老挝南欧江流域梯级水电站项目和印尼雅万高铁项目。
+                  </p>
+                  <div class="bg-blue-50 rounded p-4">
+                    <h5 class="font-semibold text-blue-800 mb-2">核心动机</h5>
+                    <ul class="text-blue-700 text-xs space-y-1">
+                      <li>• 市场寻求：东南亚基础设施建设需求旺盛</li>
+                      <li>• 技术输出：将中国在大型水电、高铁领域的技术输出</li>
+                      <li>• 品牌提升：提升中国基建品牌的国际影响力</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-green-900 mb-4">徐工机械在南美、非洲的工程机械投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    徐工集团通过绿地投资与建立海外销售网络并举的方式，成功进入南美和非洲等关键市场。在巴西建立了南美最大的制造基地，在非洲建立了完善的销售和服务网络。
+                  </p>
+                  <div class="bg-green-50 rounded p-4">
+                    <h5 class="font-semibold text-green-800 mb-2">核心动机</h5>
+                    <ul class="text-green-700 text-xs space-y-1">
+                      <li>• 市场寻求：南美、非洲基础设施建设需求巨大</li>
+                      <li>• 效率寻求：降低物流成本，规避关税壁垒</li>
+                      <li>• 本土化运营：深耕当地市场，建立可持续竞争优势</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-orange-50 border-l-4 border-orange-400 p-6">
+                <h4 class="font-serif text-lg font-semibold text-orange-900 mb-4">
+                  <i class="fas fa-globe-asia mr-2"></i>国际比较：日本汽车企业在东南亚的投资布局
+                </h4>
+                <p class="text-orange-800 text-sm mb-4">
+                  日本汽车企业在东南亚的投资布局是传统制造业全球化扩张的经典案例。早在20世纪70年代，丰田、本田等便开始在泰国、印度尼西亚等东南亚国家进行大规模投资。
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-orange-700">
+                  <div>
+                    <strong>生态出海模式：</strong>不仅在当地生产整车，还积极培育本土的零部件供应商，形成了紧密的产业协同网络
+                  </div>
+                  <div>
+                    <strong>深度整合：</strong>丰田在泰国设厂时，会带动其核心零部件供应商如电装、爱信等一同出海，在当地建立配套工厂
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emerging Manufacturing -->
+          <div id="emerging-manufacturing" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">新兴制造业出海案例</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                新兴制造业的出海，往往伴随着技术、资本和品牌的全球竞争。中国企业在新能源汽车、电池等领域，正从过去的&#34;追赶者&#34;转变为&#34;并跑者&#34;甚至&#34;领跑者&#34;，其出海战略也呈现出技术寻求与市场开拓并重的特点。
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="border-l-4 border-blue-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-blue-900 mb-4">宁德时代在德国、匈牙利的新能源电池投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    宁德时代作为动力电池制造商，在欧洲汽车工业的核心地带建立大型生产基地。在德国投资建设电池工厂，在匈牙利德布勒森投资73.4亿欧元建设欧洲第二座工厂。
+                  </p>
+                  <div class="bg-blue-50 rounded p-4">
+                    <h5 class="font-semibold text-blue-800 mb-2">战略考量</h5>
+                    <ul class="text-blue-700 text-xs space-y-1">
+                      <li>• 市场驱动：直接服务于宝马、奔驰等德国主流车企</li>
+                      <li>• 技术吸收：学习欧洲在工业4.0、智能制造方面经验</li>
+                      <li>• 战略卡位：地处欧洲中心，辐射整个欧洲市场</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-green-900 mb-4">比亚迪在东南亚的新能源汽车投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    比亚迪凭借其领先的电池技术、电控技术和垂直整合的产业链优势，积极布局海外市场。在泰国罗勇府投资建设的电动汽车工厂是其首个海外乘用车生产基地。
+                  </p>
+                  <div class="bg-green-50 rounded p-4">
+                    <h5 class="font-semibold text-green-800 mb-2">战略考量</h5>
+                    <ul class="text-green-700 text-xs space-y-1">
+                      <li>• 市场寻求：东南亚人口众多，经济增长迅速，新能源汽车需求旺盛</li>
+                      <li>• 效率提升：降低生产和运输成本，规避贸易壁垒</li>
+                      <li>• 区域辐射：作为向澳大利亚、新西兰等地区出口的跳板</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-purple-50 border-l-4 border-purple-400 p-6">
+                <h4 class="font-serif text-lg font-semibold text-purple-900 mb-4">
+                  <i class="fas fa-car mr-2"></i>国际比较：德国汽车企业在中国的投资布局
+                </h4>
+                <p class="text-purple-800 text-sm mb-4">
+                  德国汽车企业在中国的投资布局是国际新兴制造业合作的典范。自20世纪80年代以来，大众、宝马、奔驰等便进入中国，与中国本土企业成立合资企业。
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 text-sm text-purple-700">
+                  <div>
+                    <strong>战略演进：</strong>从&#34;技术换市场&#34;到&#34;在中国，为中国&#34;，再到&#34;在中国，为世界&#34;
+                  </div>
+                  <div>
+                    <strong>新投资：</strong>大众投资25亿欧元拓展合肥生产及创新中心，宝马投资300亿元人民币升级沈阳工厂
+                  </div>
+                  <div>
+                    <strong>本土化：</strong>深度融入中国市场，与中国合作伙伴共同成长，根据中国市场变化及时调整战略
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Traditional Services -->
+          <div id="traditional-services" class="section-anchor mb-16">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">传统服务业出海案例</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                传统服务业的出海，如餐饮、酒店等，其核心挑战在于如何在保持品牌特色的同时，实现深度的本地化，以适应不同国家和地区的文化、口味和消费习惯。中国餐饮企业的出海，正从早期的&#34;移民餐饮&#34;向&#34;品牌餐饮&#34;转型。
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="border-l-4 border-red-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-red-900 mb-4">蜜雪冰城在东南亚的连锁扩张</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    蜜雪冰城作为中国新式茶饮的代表，将东南亚作为出海的第一站。主要采用加盟模式进行快速扩张，推出相对优惠的加盟政策，以&#34;蚂蚁雄兵&#34;式的布局迅速渗透市场。
+                  </p>
+                  <div class="bg-red-50 rounded p-4">
+                    <h5 class="font-semibold text-red-800 mb-2">成功要素</h5>
+                    <ul class="text-red-700 text-xs space-y-1">
+                      <li>• 文化相似性：地理位置毗邻，茶文化相似</li>
+                      <li>• 市场契合：年轻人口多，消费水平与品牌定位契合</li>
+                      <li>• 供应链优势：自建供应链体系，低成本高品质</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-indigo-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-indigo-900 mb-4">华住酒店在海外的酒店业投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    华住酒店集团主要通过战略投资和品牌合作的方式进行全球化扩张。投资德意志酒店集团（DH），实现&#34;双向赋能&#34;的模式，将华住品牌推向欧洲市场。
+                  </p>
+                  <div class="bg-indigo-50 rounded p-4">
+                    <h5 class="font-semibold text-indigo-800 mb-2">战略特点</h5>
+                    <ul class="text-indigo-700 text-xs space-y-1">
+                      <li>• 轻资产模式：避免重资产自建酒店的高风险</li>
+                      <li>• 双向赋能：引入国际品牌，同时输出中国品牌</li>
+                      <li>• 服务提升：学习国际先进酒店管理经验</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+                <h4 class="font-serif text-lg font-semibold text-yellow-900 mb-4">
+                  <i class="fas fa-hamburger mr-2"></i>国际比较：美国快餐连锁企业在全球的扩张
+                </h4>
+                <p class="text-yellow-800 text-sm mb-4">
+                  美国快餐连锁企业在全球的扩张是传统服务业出海的经典案例。以麦当劳、肯德基、星巴克等为代表，其核心是将其标准化的产品、服务和品牌形象复制到全球各地。
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-yellow-700">
+                  <div>
+                    <strong>标准化运营：</strong>在食品制作工艺、口味、装修风格、服务流程等方面实现全球统一
+                  </div>
+                  <div>
+                    <strong>特许经营：</strong>通过特许经营模式快速扩张，降低市场进入风险和成本
+                  </div>
+                  <div>
+                    <strong>本土化策略：</strong>在坚持核心产品标准化的同时，根据当地口味推出本土化产品
+                  </div>
+                  <div>
+                    <strong>成功案例：</strong>肯德基在中国推出豆浆、油条等中式早餐，深受消费者喜爱
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emerging Services -->
+          <div id="emerging-services" class="section-anchor">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-8">新兴服务业出海案例</h3>
+
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+              <p class="text-gray-700 leading-relaxed mb-8">
+                新兴服务业的出海，如互联网、金融科技、云计算等，是全球化和数字化时代的新现象。中国企业在这一领域展现出强大的竞争力，其出海战略往往以技术和模式创新为核心，通过数字平台连接全球用户。
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="border-l-4 border-blue-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-blue-900 mb-4">字节跳动（TikTok）在欧美的数字服务投资</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    TikTok的出海路径主要是通过收购和本土化运营相结合的方式。2017年，字节跳动斥资10亿美元收购美国短视频应用Musical.ly，并将其与TikTok合并，快速切入欧美市场。
+                  </p>
+                  <div class="bg-blue-50 rounded p-4">
+                    <h5 class="font-semibold text-blue-800 mb-2">成功要素</h5>
+                    <ul class="text-blue-700 text-xs space-y-1">
+                      <li>• 算法技术：强大的算法推荐技术，提供个性化内容</li>
+                      <li>• 本土化运营：在各国设立本地化运营团队</li>
+                      <li>• 模式复制：将中国市场验证成功的运营模式引入欧美</li>
+                    </ul>
+                  </div>
+                  <div class="bg-red-50 rounded p-3 mt-3">
+                    <h5 class="font-semibold text-red-800 mb-1 text-xs">挑战</h5>
+                    <p class="text-red-700 text-xs">
+                      面临日益严峻的监管压力和地缘政治风险，如美国国家安全审查、欧盟《数字服务法案》监管等
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-6">
+                  <h4 class="font-serif text-lg font-semibold text-green-900 mb-4">菜鸟网络在东南亚的物流网络建设</h4>
+                  <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                    菜鸟网络通过投资、合作和自建相结合的方式，在东南亚构建高效、智能的物流网络。在马来西亚吉隆坡建立首个海外eWTP超级物流枢纽。
+                  </p>
+                  <div class="bg-green-50 rounded p-4">
+                    <h5 class="font-semibold text-green-800 mb-2">战略特点</h5>
+                    <ul class="text-green-700 text-xs space-y-1">
+                      <li>• 基础设施先行：通过构建物流基础设施赋能区域发展</li>
+                      <li>• 生态构建：服务于阿里巴巴在东南亚的电商业务</li>
+                      <li>• 区域赋能：赋能当地中小企业，促进贸易便利化</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-gray-400 p-6">
+                <h4 class="font-serif text-lg font-semibold text-gray-900 mb-4">
+                  <i class="fas fa-laptop-code mr-2"></i>国际比较：美国互联网公司在中国的投资布局
+                </h4>
+                <p class="text-gray-700 text-sm mb-4">
+                  美国互联网公司在中国的投资布局是国际新兴服务业合作与竞争的缩影。以谷歌、亚马逊、微软、苹果等为代表的企业自20世纪90年代末便纷纷进入中国。
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
+                  <div>
+                    <strong>挑战：</strong>严格的网络内容审查、激烈的市场竞争、本土企业快速崛起，导致许多美国公司在华业务遭遇挑战
+                  </div>
+                  <div>
+                    <strong>地缘政治：</strong>随着中美科技竞争加剧，美国对华投资特别是高科技领域投资受到越来越严格的审查，反映了新兴服务业出海面临的地缘政治风险
+                  </div>
+                </div>
+                <div class="bg-white rounded p-3 mt-4">
+                  <p class="text-gray-700 text-xs italic">
+                    &#34;蚂蚁金服收购美国速汇金（MoneyGram）的交易就因国家安全顾虑而告吹，体现了新兴服务业出海面临的地缘政治风险。&#34;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="max-w-5xl mx-auto px-8 py-16 bg-gray-50">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="font-serif text-2xl font-semibold text-gray-900 mb-8">参考文献</h2>
+          <div class="bg-white rounded-xl shadow-sm border p-8">
+            <div class="space-y-4 text-sm text-gray-700">
+              <div id="ref1" class="border-l-4 border-blue-400 pl-4">
+                <strong>[1]</strong> fDi Markets中国企业出海动机分析报告 (2018-2023)
+                <a href="https://www.goalfore.cn/a/4930.html" class="citation-link ml-2" target="_blank">查看来源</a>
+              </div>
+              <div id="ref2" class="border-l-4 border-green-400 pl-4">
+                <strong>[2]</strong> 塞尔维亚中资企业经营状况调查报告 (2024)
+                <a href="https://fdi.mofcom.gov.cn/resource/pdf/2025/09/05/f4e2ac96f3d94a87a715ddd964bb70d9.pdf" class="citation-link ml-2" target="_blank">查看来源</a>
+              </div>
+              <div id="ref3" class="border-l-4 border-purple-400 pl-4">
+                <strong>[3]</strong> 中国对外直接投资统计公报 (2024)
+                <a href="https://www.gov.cn/lianbo/bumen/202509/P020250908508134967854.pdf" class="citation-link ml-2" target="_blank">查看来源</a>
+              </div>
+              <div id="ref4" class="border-l-4 border-orange-400 pl-4">
+                <strong>[4]</strong> 中国对外投资合作发展报告 (2024)
+                <a href="https://www.gov.cn/lianbo/bumen/202509/P020250908508134967854.pdf" class="citation-link ml-2" target="_blank">查看来源</a>
+              </div>
+              <div id="ref5" class="border-l-4 border-red-400 pl-4">
+                <strong>[5]</strong> 中国企业出海战略分析报告
+                <a href="https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/hwtz/xsfx/content/post_12057466.html" class="citation-link ml-2" target="_blank">查看来源</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+        // Initialize Mermaid with enhanced configuration
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#1e3a8a',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#1e40af',
+                lineColor: '#64748b',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#e2e8f0',
+                background: '#ffffff',
+                mainBkg: '#1e3a8a',
+                secondBkg: '#3b82f6',
+                tertiaryBkg: '#60a5fa',
+                primaryBorderColor: '#1e40af',
+                secondaryBorderColor: '#2563eb',
+                tertiaryBorderColor: '#3b82f6',
+                primaryTextColor: '#ffffff',
+                secondaryTextColor: '#ffffff',
+                tertiaryTextColor: '#1e293b',
+                textColor: '#1e293b',
+                fontSize: '13px',
+                fontFamily: 'Inter, sans-serif',
+                // Enhanced contrast settings
+                nodeBorder: '#1e40af',
+                clusterBkg: '#f8fafc',
+                clusterBorder: '#cbd5e1',
+                defaultLinkColor: '#64748b',
+                titleColor: '#1e293b',
+                edgeLabelBackground: '#ffffff',
+                nodeTextColor: '#ffffff'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20,
+                nodeSpacing: 50,
+                rankSpacing: 80,
+                diagramPadding: 20
+            },
+            graph: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                padding: 20
+            },
+            fontFamily: 'Inter, sans-serif',
+            fontSize: 13,
+            // Security settings
+            securityLevel: 'loose'
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize mermaid controls after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMermaidControls();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const tocNav = document.querySelector('.toc-nav');
+        const menuToggle = document.createElement('button');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        menuToggle.className = 'fixed top-4 left-4 z-50 bg-white p-3 rounded-lg shadow-lg lg:hidden';
+        document.body.appendChild(menuToggle);
+
+        menuToggle.addEventListener('click', () => {
+            tocNav.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && !tocNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                tocNav.classList.remove('open');
+            }
+        });
+
+        // Highlight active section in TOC
+        const observerOptions = {
+            rootMargin: '-20% 0px -70% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    document.querySelectorAll('.toc-nav a').forEach(link => {
+                        link.classList.remove('bg-blue-100', 'text-blue-700');
+                        link.classList.add('text-gray-600');
+                    });
+                    
+                    // Add active class to current section link
+                    const activeLink = document.querySelector(`.toc-nav a[href="#${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.remove('text-gray-600');
+                        activeLink.classList.add('bg-blue-100', 'text-blue-700');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section-anchor').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+  
+
+</body></html>
