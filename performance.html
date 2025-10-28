@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国企业对外直接投资（OFDI）绩效分析</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2874a6;
+            --accent-color: #3498db;
+            --light-color: #ebf5fb;
+            --dark-color: #154360;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .nav-container {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .case-study {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .risk-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .risk-low {
+            background-color: #d5f4e6;
+            color: var(--success-color);
+        }
+        
+        .risk-medium {
+            background-color: #fff9e6;
+            color: var(--warning-color);
+        }
+        
+        .risk-high {
+            background-color: #ffe6e6;
+            color: var(--danger-color);
+        }
+        
+        .key-findings {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .key-findings ul {
+            padding-left: 1.5rem;
+        }
+        
+        .key-findings li {
+            margin-bottom: 0.75rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+            }
+            
+            nav a {
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>中国企业对外直接投资（OFDI）绩效分析</h1>
+            <p>全面展示中国企业对外直接投资的绩效、路径及全球比较分析</p>
+        </div>
+    </header>
+    
+    <div class="nav-container">
+        <nav class="container">
+            <a href="#executive-summary">执行摘要</a>
+            <a href="#theoretical-framework">理论框架</a>
+            <a href="#global-comparison">全球比较</a>
+            <a href="#north-south-comparison">南北比较</a>
+            <a href="#case-studies">案例分析</a>
+            <a href="#conclusions">结论建议</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <section id="executive-summary">
+            <h2>执行摘要与战略背景</h2>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">2023年全行业对外直接投资</div>
+                    <div class="stat-value">1.04万亿</div>
+                    <div class="stat-label">人民币 (约1478.5亿美元)</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">2024年上半年对外直接投资</div>
+                    <div class="stat-value">6060.7亿</div>
+                    <div class="stat-label">人民币 (同比增长13.2%)</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">全球投资排名</div>
+                    <div class="stat-value">第3位</div>
+                    <div class="stat-label">连续12年位居全球前三</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">核心发现</h3>
+                <div class="key-findings">
+                    <ul>
+                        <li><strong>策略二分法：</strong>中国OFDI策略呈现出明显的地理二分特征，北方投资以战略资产寻求为主，南方投资以市场寻求和资源寻求为主。</li>
+                        <li><strong>绩效权衡与风险溢价：</strong>北方投资在长期内能带来更高的非财务回报，但短期内对企业财务稳健性造成巨大压力。</li>
+                        <li><strong>地缘政治影响：</strong>地缘政治风险和政策不确定性已成为OFDI配置的关键驱动因素。</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="ofdiGrowthChart"></canvas>
+            </div>
+        </section>
+        
+        <section id="theoretical-framework">
+            <h2>理论框架与绩效衡量</h2>
+            
+            <div class="card">
+                <h3 class="card-title">国际化理论的演变</h3>
+                <p>国际商务研究中的主流理论，如邓宁的折衷范式（OLI），通常假设跨国企业是基于其既有的<strong>所有权优势</strong>进行国际扩张。然而，对于新兴市场跨国企业（EMNEs）而言，这一框架存在局限性。</p>
+                
+                <p><strong>"跳板"理论的适用性：</strong>中国MNEs的国际化行为更符合"跳板"理论。它们进行OFDI的目的不仅是为了剥削现有的资产，更重要的动机是<strong>获取其在国内市场缺乏的战略资产、知识和技术</strong>，以实现产业升级和竞争优势的重塑。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">OFDI动机的细分与战略选择</h3>
+                <div class="chart-container">
+                    <canvas id="motivationChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">OFDI绩效的界定与量化指标</h3>
+                
+                <h4>微观层面的绩效指标</h4>
+                <ul>
+                    <li><strong>财务稳健性指标：</strong>资产负债率、流动比率、Z值模型等</li>
+                    <li><strong>运营与创新绩效：</strong>母公司生产力提升、供应链效率等</li>
+                </ul>
+                
+                <h4>宏观层面的绩效指标</h4>
+                <ul>
+                    <li><strong>知识溢出与技术进步：</strong>通过元分析等方法评估</li>
+                    <li><strong>对母国经济发展的贡献：</strong>财务回报、无形能力提升和有形能力积累</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="global-comparison">
+            <h2>宏观层面全球比较：中国OFDI的国际定位</h2>
+            
+            <div class="card">
+                <h3 class="card-title">发达市场MNEs（美国、欧盟、日本）：剥削与金融化模式</h3>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-label">美国海外直接投资存量</div>
+                        <div class="stat-value">6.83万亿</div>
+                        <div class="stat-label">美元 (截至2024年底)</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">美国海外投资收入</div>
+                        <div class="stat-value">6019亿</div>
+                        <div class="stat-label">美元 (2024年)</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">欧洲全球投资存量占比</div>
+                        <div class="stat-value">42%</div>
+                        <div class="stat-label">(2022年)</div>
+                    </div>
+                </div>
+                
+                <p><strong>美国MNEs：金融优化模式</strong> - 美国OFDI的庞大存量主要集中在低税负司法管辖区，例如英国、荷兰和卢森堡，这表明其主要战略在于<strong>利用知识产权和品牌优势，通过复杂的金融和税收优化结构实现利润最大化</strong>。</p>
+                
+                <p><strong>日本与欧洲MNEs：战略与整合</strong> - 日本的OFDI受到政府政策的强烈指导，例如日本国际协力银行通过提供"海外投资贷款"支持本国公司在海外获取战略资源。欧洲在全球对外投资存量中占据主导地位，体现了其区域深度一体化的特征。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">新兴市场MNEs（韩国、印度）：跳板先例</h3>
+                
+                <p><strong>韩国MNEs：获取型M&A的生产力溢价</strong> - 对韩国2010年至2019年间OFDI的研究显示，对外投资确实能提升母公司的生产力。这种积极效应在两种条件下被显著放大：1) 投资采用<strong>M&A形式</strong>；2) <strong>投资目标是发达国家</strong>。</p>
+                
+                <p><strong>印度MNEs：资源平衡策略</strong> - 印度MNEs的国际化动机与中国企业类似，主要也是为了获取自然资源、市场资源、战略资源和效率资源，以获取其在国内缺乏的无形资产，并平衡整体资源配置。</p>
+            </div>
+        </section>
+        
+        <section id="north-south-comparison">
+            <h2>比较分析：北方 vs. 南方OFDI的路径与绩效</h2>
+            
+            <div class="card">
+                <h3 class="card-title">投资动机与路径的地理差异</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>目标国类型</th>
+                            <th>主导OFDI动机</th>
+                            <th>典型路径</th>
+                            <th>面临的主要挑战</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>北方（发达国家）</td>
+                            <td>战略资产寻求（SAS）</td>
+                            <td>M&A（兼并与收购）</td>
+                            <td>高政治风险、监管审查严格、文化融合难度大</td>
+                        </tr>
+                        <tr>
+                            <td>南方（发展中国家）</td>
+                            <td>市场寻求、资源寻求</td>
+                            <td>绿地投资、基础设施项目</td>
+                            <td>高经济基本面风险、基础设施配套不完善、运营风险高</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">绩效比较：风险与回报的定量分析</h3>
+                
+                <div class="chart-container">
+                    <canvas id="riskComparisonChart"></canvas>
+                </div>
+                
+                <p><strong>北方：高政治风险下的低经济风险</strong> - 发达国家通常拥有完善的市场机制和稳定的经济结构，但对中国投资构成了高政治和法律风险。</p>
+                
+                <p><strong>南方：高运营风险下的政策友好</strong> - 发展中地区具有较低的政治壁垒和较高的文化亲近性，但引入了更高的经济基本面风险和运营风险。</p>
+            </div>
+        </section>
+        
+        <section id="case-studies">
+            <h2>深度案例分析：产业类型下的OFDI绩效</h2>
+            
+            <div class="card">
+                <h3 class="card-title">传统制造业（案例：海尔集团）</h3>
+                
+                <div class="case-study">
+                    <p><strong>战略路径：</strong>海尔通过对通用电气（GE）家电业务和三洋电机等北方资产的兼并与收购，旨在获取国际品牌、成熟市场渠道和先进管理经验。</p>
+                    
+                    <p><strong>定量绩效分析——财务风险量化：</strong></p>
+                    <ul>
+                        <li><strong>Z值模型：</strong>2014年Z值为3.0287（低风险） → 2016年Z值为1.6892（非常高风险）</li>
+                        <li><strong>资产负债率：</strong>2016年达到70%以上</li>
+                        <li><strong>流动比率：</strong>2016年首次跌破1（0.94）</li>
+                    </ul>
+                    
+                    <p><strong>绩效结论：</strong>海尔的案例证明成功的战略资产获取必须以接受可量化的、严重的短期财务风险恶化为前提。在3-5年的整合期后，财务结构可以恢复稳健，从而实现长期的竞争优势提升。</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">新兴制造业（案例：比亚迪 / 宁德时代）</h3>
+                
+                <div class="case-study">
+                    <p><strong>战略路径：</strong>比亚迪和宁德时代等企业正在欧洲和东盟地区建立生产基地，既是为了接近关键消费市场，也是为了通过供应链多元化来应对贸易保护主义和关税威胁。</p>
+                    
+                    <p><strong>定量绩效分析——增长与投入强度：</strong></p>
+                    <ul>
+                        <li><strong>比亚迪2024年总营收：</strong>7771亿元人民币，同比增长23%</li>
+                        <li><strong>比亚迪2024年研发支出：</strong>542亿元人民币，同比增长36%</li>
+                    </ul>
+                    
+                    <p><strong>战略意义：</strong>这种高研发投入强度验证了先进EMNEs正处于<strong>所有权优势创造阶段</strong>。OFDI的绩效衡量标准不再是纯粹的资产回报率，而是全球市场份额的快速增长和供应链的弹性。</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">新兴服务业（案例：阿里巴巴 / 腾讯）</h3>
+                
+                <div class="case-study">
+                    <p><strong>战略路径：</strong>阿里巴巴和腾讯通过投资于国际电商平台和国际游戏业务，在全球范围内建立数字资产。</p>
+                    
+                    <p><strong>定量绩效分析——高增长速度：</strong></p>
+                    <ul>
+                        <li><strong>阿里巴巴国际数字商业（AIDC）：</strong>2024年第四季度国际商业零售业务收入激增36%，达到315.53亿元人民币</li>
+                    </ul>
+                    
+                    <p><strong>绩效解读：</strong>这种高速增长验证了数字经济中纯粹的市场寻求策略能够带来快速且高增长的收入回报，其国际业务增长率通常高于传统制造和服务业。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="casePerformanceChart"></canvas>
+            </div>
+        </section>
+        
+        <section id="conclusions">
+            <h2>总结、政策含义与未来研究建议</h2>
+            
+            <div class="card">
+                <h3 class="card-title">宏观规律与战略模式总结</h3>
+                
+                <div class="key-findings">
+                    <ul>
+                        <li><strong>OFDI路径的成熟度依赖：</strong>中国MNEs正从早期国家主导的资源寻求阶段，向日益复杂的、企业主导的战略资产寻求阶段转变。</li>
+                        <li><strong>M&A与绿地投资的选择：</strong>韩国OFDI的定量研究证实，M&A是实现发达市场SAS、提升母公司生产力的更优模式。</li>
+                        <li><strong>地缘政治的决定性影响：</strong>地缘政治风险已超越纯粹的经济考量，成为决定OFDI区位选择的首要因素。</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">风险管理与绩效优化建议</h3>
+                
+                <ul>
+                    <li><strong>资本韧性管理：</strong>进行大规模SAS M&A的企业必须在资本结构中预留足够的缓冲，并制定能够承受信用评级下调和高负债水平的多年期融资计划。</li>
+                    <li><strong>政策性支持SAS：</strong>国家层面应考虑提供定向的政策支持，协助企业对冲北方投资中的政治风险成本。</li>
+                    <li><strong>供应链弹性建设：</strong>必须将OFDI视为供应链弹性建设的一部分，持续向东盟等南方"连接器"国家进行物理分散投资。</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">未来深入研究建议</h3>
+                
+                <ul>
+                    <li><strong>量化传统服务业的地域分部绩效：</strong>通过对企业财务数据进行深度挖掘，量化其"海外"分部对总利润的实际贡献。</li>
+                    <li><strong>量化SAS OFDI的母国技术溢出：</strong>构建计量经济学模型，利用中国制造企业在收购北方战略资产前后的微观数据，量化其创新绩效的提高程度。</li>
+                    <li><strong>比较不同风险的运营成本：</strong>建立模型，对比北方投资和南方投资中的不同风险成本，为企业制定最优风险调整后回报策略提供依据。</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>中国企业对外直接投资（OFDI）绩效分析报告</p>
+            <p>数据来源：商务部、外汇管理局、企业年报及相关研究报告</p>
+        </div>
+    </footer>
+
+    <script>
+        // OFDI增长趋势图
+        const ofdiGrowthCtx = document.getElementById('ofdiGrowthChart').getContext('2d');
+        const ofdiGrowthChart = new Chart(ofdiGrowthCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024上半年'],
+                datasets: [{
+                    label: '中国全行业对外直接投资 (亿元人民币)',
+                    data: [9000, 9360, 10320, 10418.5, 6060.7],
+                    borderColor: '#2874a6',
+                    backgroundColor: 'rgba(40, 116, 166, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '中国对外直接投资增长趋势 (2020-2024上半年)'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '投资额 (亿元人民币)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // OFDI动机分布图
+        const motivationCtx = document.getElementById('motivationChart').getContext('2d');
+        const motivationChart = new Chart(motivationCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['战略资产寻求', '市场寻求', '资源寻求', '效率寻求'],
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: [
+                        '#3498db',
+                        '#2ecc71',
+                        '#f39c12',
+                        '#9b59b6'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '中国OFDI主要动机分布'
+                    },
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // 风险比较图
+        const riskComparisonCtx = document.getElementById('riskComparisonChart').getContext('2d');
+        const riskComparisonChart = new Chart(riskComparisonCtx, {
+            type: 'radar',
+            data: {
+                labels: ['政治风险', '法律风险', '经济风险', '运营风险', '文化风险'],
+                datasets: [{
+                    label: '北方投资 (发达国家)',
+                    data: [8, 7, 3, 5, 7],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: '#3498db',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#3498db'
+                }, {
+                    label: '南方投资 (发展中国家)',
+                    data: [4, 5, 8, 9, 4],
+                    backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                    borderColor: '#2ecc71',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#2ecc71'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '北方 vs. 南方投资风险比较'
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+
+        // 案例绩效比较图
+        const casePerformanceCtx = document.getElementById('casePerformanceChart').getContext('2d');
+        const casePerformanceChart = new Chart(casePerformanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['海尔集团', '比亚迪汽车', '中远海控', '阿里巴巴AIDC'],
+                datasets: [{
+                    label: '关键绩效指标增长 (%)',
+                    data: [-44.2, 23, 25, 36],
+                    backgroundColor: [
+                        'rgba(231, 76, 60, 0.7)',
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(155, 89, 182, 0.7)'
+                    ],
+                    borderColor: [
+                        '#e74c3c',
+                        '#2ecc71',
+                        '#3498db',
+                        '#9b59b6'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '代表性企业OFDI绩效比较'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '增长率 (%)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 平滑滚动导航
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
